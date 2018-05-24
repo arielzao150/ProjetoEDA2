@@ -10,6 +10,8 @@ namespace ProjetoEDA2
     {
         #region Atributos
         private string nome;
+        public bool Visited;
+        public int emissora = 0;
         private List<Edge> vizinhos;
         public string Nome
         {
@@ -27,6 +29,13 @@ namespace ProjetoEDA2
             get
             {
                 return vizinhos;
+            }
+        }
+        public int Grau
+        {
+            get
+            {
+                return vizinhos.Count;
             }
         }
         #endregion

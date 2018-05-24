@@ -47,7 +47,8 @@ namespace ProjetoEDA2
             Console.WriteLine("");
             estado.MostraVizinhos();
             Console.WriteLine("");
-
+            
+            Console.ReadKey();
             estado.EmissoraDeTelevisao();
 
             Console.ReadKey();

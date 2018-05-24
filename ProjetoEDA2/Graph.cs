@@ -71,8 +71,29 @@ namespace ProjetoEDA2
             }
         }
 
+        public void CleanNodes()
+        {
+            foreach(Node clean in cidades)
+                clean.Visited = false;
+        }
+
+        /// <summary>
+        /// Resolve o problema.
+        /// </summary>
         public void EmissoraDeTelevisao()
         {
+            // Deixa todas as cidades como não visitadas
+            CleanNodes();
+
+            List<int> emissorasImpossiveis = new List<int>();
+
+            foreach (Node cidade in cidades)
+            {
+                if (!cidade.Visited)
+                    foreach (Edge vizinho in cidade.Vizinhos)
+                        if (vizinho.B.emissora != 0)
+                            emissorasImpossiveis.Add(vizinho.B.emissora);
+            }
             throw new NotImplementedException();
         }
         #endregion
