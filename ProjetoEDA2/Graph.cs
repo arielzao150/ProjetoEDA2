@@ -6,6 +6,7 @@ namespace ProjetoEDA2
     public class Graph
     {
         #region Atributos
+        private List<int> emissorasFinal;
         private List<Node> cidades;
         public List<Node> Cidades
         {
@@ -71,6 +72,15 @@ namespace ProjetoEDA2
             }
         }
 
+        public void MostraEmissoras()
+        {
+            foreach(Node no in cidades)
+            {
+                Console.WriteLine("emissora de {0} é:", no.Nome);
+                Console.WriteLine(no.emissora.ToString());
+            }
+        }
+
         public void CleanNodes()
         {
             foreach(Node clean in cidades)
@@ -95,6 +105,71 @@ namespace ProjetoEDA2
                             emissorasImpossiveis.Add(vizinho.B.emissora);
             }
             throw new NotImplementedException();
+        }
+
+
+
+        public int MetodoDouglas()
+        {
+            List<int> emissoras = new List<int>();
+            int emissoraNova = 0;
+
+            // Deixa todas as cidades como não visitadas
+            CleanNodes();
+
+            Queue<Node> Q = new Queue<Node>();
+
+            Random rnd = new Random();
+            int r = rnd.Next(cidades.Count);
+            Node primeiro = cidades[r];
+
+            primeiro.Visited = true;   
+            emissoraNova++;
+            emissoras.Add(emissoraNova);
+            primeiro.emissora = emissoraNova;
+
+            Q.Enqueue(primeiro);
+
+            while (Q.Count != 0)
+            {
+                Node N = Q.Dequeue();
+                foreach (Edge aresta in N.Vizinhos)
+                {
+                    if (!aresta.B.Visited)
+                    {
+                        //Pegando todas as emissoras das cidades vizinhas
+                        List<int> emissorasVizinhos = new List<int>();
+                        foreach (Edge caminhoVizinho in aresta.B.Vizinhos)
+                        {
+                            emissorasVizinhos.Add(caminhoVizinho.B.emissora);
+                        }
+
+                        //Verifica se alguma das emissora existentes não está entre
+                        //as emissoras das cidades vizinhas. Se tiver, eu adiciono essa emissora para
+                        //a cidade atual
+                        foreach (int emissoraExistente in emissoras)
+                        {                                                 
+                            if(!emissorasVizinhos.Contains(emissoraExistente) && aresta.B.emissora == -1) 
+                            {
+                                aresta.B.emissora = emissoraExistente;
+                            }                                    
+                        }
+                        //Caso todas emissoras existentes ja estejam entre os vizinhos
+                        //Criamos uma nova
+                        if(aresta.B.emissora == -1)
+                        {
+                            emissoraNova++;
+                            emissoras.Add(emissoraNova);
+                            aresta.B.emissora = emissoraNova;
+                        }                        
+
+                        Q.Enqueue(aresta.B);
+                        aresta.B.Visited = true;
+                    }
+                }
+            }
+            emissorasFinal = emissoras;
+            return emissoras.Count;
         }
         #endregion
     }

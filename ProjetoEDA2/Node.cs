@@ -11,7 +11,7 @@ namespace ProjetoEDA2
         #region Atributos
         private string nome;
         public bool Visited;
-        public int emissora = 0;
+        public int emissora = -1;
         private List<Edge> vizinhos;
         public string Nome
         {
