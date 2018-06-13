@@ -76,7 +76,7 @@ namespace ProjetoEDA2
         {
             foreach(Node no in cidades)
             {
-                Console.WriteLine("emissora de {0} é:", no.Nome);
+                Console.WriteLine("A emissora de {0} é:", no.Nome);
                 Console.WriteLine(no.emissora.ToString());
             }
         }
@@ -90,26 +90,7 @@ namespace ProjetoEDA2
         /// <summary>
         /// Resolve o problema.
         /// </summary>
-        public void EmissoraDeTelevisao()
-        {
-            // Deixa todas as cidades como não visitadas
-            CleanNodes();
-
-            List<int> emissorasImpossiveis = new List<int>();
-
-            foreach (Node cidade in cidades)
-            {
-                if (!cidade.Visited)
-                    foreach (Edge vizinho in cidade.Vizinhos)
-                        if (vizinho.B.emissora != 0)
-                            emissorasImpossiveis.Add(vizinho.B.emissora);
-            }
-            throw new NotImplementedException();
-        }
-
-
-
-        public int MetodoDouglas()
+        public int EmissoraDeTelevisao()
         {
             List<int> emissoras = new List<int>();
             int emissoraNova = 0;

@@ -49,10 +49,9 @@ namespace ProjetoEDA2
             Console.WriteLine("");
             
             //estado.EmissoraDeTelevisao();            
-            Console.WriteLine("O número minimo de emissoras é: {0}", estado.MetodoDouglas().ToString());
+            Console.WriteLine("O número minimo de emissoras é: {0}", estado.EmissoraDeTelevisao().ToString());
             estado.MostraEmissoras();
             
-
             Console.ReadKey();
         }
     }
